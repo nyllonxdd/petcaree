@@ -1,0 +1,92 @@
+<div class="auth-container">
+  <div class="auth-split">
+    <div class="auth-image">
+      <div class="overlay">
+        <h1>Welcome to PetCare</h1>
+        <p>Your pet's best friend</p>
+      </div>
+    </div>
+
+    <div class="auth-form">
+      <div class="form-container">
+        <div class="form-header">
+          <h2>{{ isLogin ? 'Login' : 'Sign Up' }}</h2>
+          <p>{{ isLogin ? 'Welcome back!' : 'Create your account' }}</p>
+        </div>
+
+        <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+          <div class="form-group" *ngIf="!isLogin">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              placeholder="Enter your name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              placeholder="Enter your email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              placeholder="Enter your password"
+            />
+          </div>
+
+          <div class="form-group" *ngIf="!isLogin">
+            <label for="petName">Pet Name</label>
+            <input
+              type="text"
+              id="petName"
+              formControlName="petName"
+              placeholder="Enter your pet's name"
+            />
+          </div>
+
+          <div class="form-group" *ngIf="!isLogin">
+            <label for="petBreed">Pet Breed</label>
+            <input
+              type="text"
+              id="petBreed"
+              formControlName="petBreed"
+              placeholder="Enter your pet's breed"
+            />
+          </div>
+
+          <div class="form-group" *ngIf="!isLogin">
+            <label for="petYear">Pet Year</label>
+            <input
+              type="number"
+              id="petYear"
+              formControlName="petYear"
+              placeholder="Enter your pet's birth year"
+            />
+          </div>
+
+          <button type="submit" class="submit-btn" [disabled]="!authForm.valid">
+            {{ isLogin ? 'Login' : 'Sign Up' }}
+          </button>
+        </form>
+
+        <div class="form-footer">
+          <p>
+            {{ isLogin ? "Don't have an account?" : 'Already have an account?' }}
+            <a (click)="toggleForm()">{{ isLogin ? 'Sign Up' : 'Login' }}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
