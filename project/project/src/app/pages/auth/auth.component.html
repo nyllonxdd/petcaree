@@ -75,8 +75,12 @@
             />
           </div>
 
-          <button type="submit" class="submit-btn" [disabled]="!authForm.valid">
-            {{ isLogin ? 'Login' : 'Sign Up' }}
+          <div class="error-message" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <button type="submit" class="submit-btn" [disabled]="!authForm.valid || loading">
+            {{ loading ? 'Please wait...' : (isLogin ? 'Login' : 'Sign Up') }}
           </button>
         </form>
 

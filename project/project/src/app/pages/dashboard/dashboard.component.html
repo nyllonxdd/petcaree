@@ -1,0 +1,122 @@
+<div class="dashboard-container">
+  <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
+    <div class="logo">
+      <span class="logo-text">PetCare 🐾</span>
+    </div>
+
+    <nav class="menu">
+      <button class="menu-item active" (click)="navigateTo('/dashboard')">
+        <span class="icon">🏠</span>
+        <span class="text">Dashboard</span>
+      </button>
+      <button class="menu-item" (click)="navigateTo('/shop')">
+        <span class="icon">🛍️</span>
+        <span class="text">Shop</span>
+      </button>
+      <button class="menu-item" (click)="navigateTo('/vaccines')">
+        <span class="icon">💉</span>
+        <span class="text">Vaccines</span>
+      </button>
+      <button class="menu-item" (click)="navigateTo('/vets')">
+        <span class="icon">🧑‍⚕️</span>
+        <span class="text">Vets</span>
+      </button>
+      <button class="menu-item" (click)="navigateTo('/profile')">
+        <span class="icon">👤</span>
+        <span class="text">Profile</span>
+      </button>
+      <button class="menu-item logout" (click)="logout()">
+        <span class="icon">🚪</span>
+        <span class="text">Logout</span>
+      </button>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <section class="welcome-section">
+      <h1 class="welcome-title">Welcome back, {{userName}}!</h1>
+      <p class="welcome-subtitle">Here's everything you need to care for your pets today.</p>
+    </section>
+
+    <section class="pet-cards-section">
+      <h2 class="section-title">Your Pets</h2>
+      <div class="pet-cards-grid" *ngIf="pets.length > 0">
+        <div class="pet-card" *ngFor="let pet of pets">
+          <div class="pet-photo" [style.background-image]="'url(' + (pet.photo_url || 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=400') + ')'"></div>
+          <div class="pet-info">
+            <h3 class="pet-name">{{pet.name}}</h3>
+            <p class="pet-detail">{{pet.breed}}</p>
+            <p class="pet-detail">Age: {{pet.age}} years</p>
+            <div class="vaccination-status" [class.up-to-date]="pet.vaccination_status === 'Up to Date'" [class.due-soon]="pet.vaccination_status !== 'Up to Date'">
+              <span class="status-icon">{{getVaccinationIcon(pet.vaccination_status)}}</span>
+              <span class="status-text">{{pet.vaccination_status}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="empty-state" *ngIf="pets.length === 0">
+        <p>No pets added yet. Add your first pet to get started!</p>
+      </div>
+    </section>
+
+    <section class="quick-actions-section">
+      <h2 class="section-title">Quick Actions</h2>
+      <div class="quick-actions-grid">
+        <div class="action-card" (click)="navigateTo('/vets')">
+          <div class="action-icon">🏥</div>
+          <h3 class="action-title">Book Vet Appointment</h3>
+          <p class="action-description">Schedule a visit with trusted veterinarians</p>
+        </div>
+        <div class="action-card" (click)="navigateTo('/shop')">
+          <div class="action-icon">🛒</div>
+          <h3 class="action-title">Shop for Pet Essentials</h3>
+          <p class="action-description">Browse food, toys, and accessories</p>
+        </div>
+        <div class="action-card" (click)="navigateTo('/vaccines')">
+          <div class="action-icon">💉</div>
+          <h3 class="action-title">View Vaccine Records</h3>
+          <p class="action-description">Track vaccination history and schedules</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="activity-section">
+      <h2 class="section-title">Your Recent Activity</h2>
+      <div class="activity-table-container" *ngIf="activities.length > 0">
+        <table class="activity-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Activity Type</th>
+              <th>Description</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let activity of activities">
+              <td>{{formatDate(activity.activity_date)}}</td>
+              <td>{{activity.activity_type}}</td>
+              <td>{{activity.description}}</td>
+              <td>
+                <span class="status-badge" [class.completed]="activity.status === 'Completed'" [class.upcoming]="activity.status === 'Upcoming'">
+                  {{activity.status}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="empty-state" *ngIf="activities.length === 0">
+        <p>No recent activity. Start booking appointments or shopping!</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; 2025 PetCare. Love. Heal. Protect.</p>
+    </footer>
+  </main>
+
+  <button class="chatbot-button" title="Chat Assistant (Coming Soon)">
+    <span class="chatbot-icon">🐾</span>
+  </button>
+</div>

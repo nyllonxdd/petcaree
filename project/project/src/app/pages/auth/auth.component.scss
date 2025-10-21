@@ -150,6 +150,16 @@ form {
   }
 }
 
+.error-message {
+  padding: 0.875rem 1rem;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  color: #721c24;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
 .submit-btn {
   padding: 1rem;
   background: #3b271c;
